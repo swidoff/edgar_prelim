@@ -20,9 +20,6 @@ def validate_prelims(df: pd.DataFrame, items: List[PrelimItem] = None) -> pd.Dat
     res = []
     df = df.reset_index().set_index(['item', 'filing_date']).sort_index()
     for item in items:
-        if item.rank != 0:
-            continue
-
         def add_msg(msg_type: str, msg: str, msg_period=None):
             res.append({'cik': cik, 'item': item.name, 'period': msg_period, 'msg_type': msg_type, 'message': msg})
 
@@ -58,7 +55,7 @@ def _compress_consecutive_periods(periods: Iterable[str]) -> Iterator[str]:
         if consecutive == 1:
             return str(prior_period)
         else:
-            return f'{consecutive} periods between {str(start_period)} and {str(prior_period)}'
+            return f'{str(start_period)} to {str(prior_period)}: {consecutive} periods'
 
     for period in periods:
         if prior_period is None:

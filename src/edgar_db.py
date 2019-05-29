@@ -81,8 +81,10 @@ def query_cik(cik: str, conn: Connection = prelim_engine) -> pd.DataFrame:
 
 def save_ciks(conn: Connection = prelim_engine):
     """Loads the cik table from the csv file in the resources directory."""
-    df = pd.read_csv("resources/cik.csv")
-    df.to_sql(prelim_cik_table.name, conn, if_exists='replace', index=False)
+    df = pd.read_csv("resources/cik.csv", converters={col.name: str for col in prelim_cik_table.columns})
+    with conn.begin() as c:
+        c.execute('truncate table cik')
+        df.to_sql(prelim_cik_table.name, c, if_exists='append', index=False)
 
 
 if __name__ == '__main__':

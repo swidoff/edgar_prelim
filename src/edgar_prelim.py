@@ -2,11 +2,13 @@
 from collections import OrderedDict, namedtuple, ChainMap
 from datetime import timedelta
 from operator import attrgetter
+from pathlib import Path
 from typing import Union
 
 import papermill as pm
 import qgrid
 # noinspection PyProtectedMember
+from nbconvert.nbconvertapp import NbConvertApp
 from sqlalchemy import and_, between
 
 from bs4_util import *
@@ -343,20 +345,40 @@ def force_reload_prelim_between(cik: str, start: date, end: date, delete_filings
     load_prelim_statements(cik, start=start - timedelta(days=1), end=end, reload=True)
 
 
-def run_quality_report(cik: str):
+def run_quality_report(cik: str, regen: bool = False, convert_to_html: bool = False):
+    nb_file = f'../out/notebooks/{cik}.ipynb'
+    if not regen and Path(nb_file).exists():
+        logger.info(f"Notebook exists for {cik}. Skipping.")
+        return
+
     pm.execute_notebook(
         'resources/edgar_prelim_quality.ipynb',
-        f'../out/prelim/inbox/{cik}.ipynb',
+        nb_file,
         parameters={'cik': cik}
     )
 
+    if convert_to_html:
+        args = [
+            "--Application.log_level=ERROR",
+            "--TemplateExporter.exclude_input=True",
+            "--output-dir=static/quality/",
+            nb_file
+        ]
+        NbConvertApp.launch_instance(args)
 
-def run_summary_report(ciks: List[str]):
-    pm.execute_notebook(
-        'resources/edgar_prelim_summary.ipynb',
-        f'../out/prelim/inbox/edgar_prelim_summary.ipynb',
-        parameters={'ciks': ciks}
-    )
+
+def query_ciks_with_statements(conn: Connection = prelim_engine):
+    return pd.read_sql(
+        """select * from cik c 
+        where exists (select 1 from prelim_statement s where s.cik = c.cik) 
+        order by c.cik asc""", conn)
+
+
+def generate_quality_reports(conn: Connection = prelim_engine, regen: bool = False):
+    cik_df = query_ciks_with_statements(conn)
+    for i, row in enumerate(cik_df.itertuples(index=False), start=1):
+        logger.info(f'Generating report for {row.cik} ({i}/{len(cik_df)})')
+        run_quality_report(row.cik, regen=regen, convert_to_html=True)
 
 
 def update_database(to: date = datetime.now().date(),
@@ -376,4 +398,5 @@ def update_database(to: date = datetime.now().date(),
 
 
 if __name__ == '__main__':
-    update_database()
+    # update_database()
+    generate_quality_reports()
