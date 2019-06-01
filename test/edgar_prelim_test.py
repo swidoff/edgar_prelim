@@ -1,5 +1,6 @@
-from edgar_prelim import *
+from edgar_prelim.edgar_prelim import *
 from edgar_query import *
+from edgar_submission import *
 # noinspection PyProtectedMember
 from edgar_validate import _compress_consecutive_periods, _find_missing_periods, _find_duplicate_periods
 
