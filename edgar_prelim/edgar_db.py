@@ -9,7 +9,7 @@ from sqlalchemy.engine import Connection
 PRELIM_START = date(2002, 6, 1)
 EOT = date(2100, 1, 1)
 
-connection_string = os.environ.get("DB_URL", 'mysql+pymysql://root:admin@localhost/edgar_prelim')
+connection_string = os.environ.get("DB_URL", 'postgresql+pg8000://postgres:admin@localhost/edgar_prelim')
 prelim_engine = create_engine(connection_string, echo=False)
 prelim_metadata = MetaData()
 
