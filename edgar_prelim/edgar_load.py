@@ -17,7 +17,7 @@ from edgar_prelim.edgar_items import *
 from edgar_prelim.edgar_query import *
 from edgar_prelim.edgar_submission import load_submission, items_from_tables, parse_tables, choose_item_by_rank
 from edgar_prelim.edgar_validate import validate_prelims
-from logging_config import init_logging
+from edgar_prelim.logging_config import init_logging
 
 # TODO:
 # Split tables with multiple sections
