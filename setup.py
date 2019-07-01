@@ -9,6 +9,7 @@ setup(
     author='Seth Widoff',
     author_email='swidoff@gmail.com',
     url='https://github.com/swidoff/edgar_prelim',
-    packages=find_packages(), install_requires=['pytest']
+    packages=find_packages(),
+    install_requires=['pytest'],
+    package_data={'edgar_prelim': ['resources/*.db'], }
 )
-
