@@ -1,4 +1,4 @@
-from edgar_re import *
+from edgar_prelim.edgar_re import *
 from collections import namedtuple
 
 # PrelimItem, currently only an income statement item, has the following components:

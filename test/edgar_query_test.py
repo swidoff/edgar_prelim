@@ -1,6 +1,6 @@
 import pytest
 
-from edgar_query import *
+from edgar_prelim.edgar_query import *
 
 
 # noinspection PyPep8Naming

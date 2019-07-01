@@ -1,8 +1,8 @@
-from edgar_prelim.edgar_load import *
-from edgar_query import *
-from edgar_submission import *
+from edgar_prelim.edgar_prelim.edgar_load import *
+from edgar_prelim.edgar_query import *
+from edgar_prelim.edgar_submission import *
 # noinspection PyProtectedMember
-from edgar_validate import _compress_consecutive_periods, _find_missing_periods, _find_duplicate_periods
+from edgar_prelim.edgar_validate import _compress_consecutive_periods, _find_missing_periods, _find_duplicate_periods
 
 
 def compare(cik: str, filing_date: date, items: list, values: list, fiscal_period: str):

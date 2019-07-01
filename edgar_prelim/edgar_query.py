@@ -4,9 +4,9 @@ from datetime import date, datetime
 from types import FunctionType
 from typing import Iterator, List
 from xml.etree import ElementTree
+from xml.etree.ElementTree import ParseError
 
 import requests
-from _elementtree import ParseError
 from requests_html import HTMLSession
 from retrying import retry
 

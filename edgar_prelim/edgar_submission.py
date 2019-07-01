@@ -10,11 +10,11 @@ import requests
 from bs4 import BeautifulSoup
 from retrying import retry
 
-from bs4_util import read_table_tag, sanitize_text
-from edgar_fiscal_period import has_fiscal_period, is_header_part, parse_fiscal_period_row
-from edgar_items import PrelimItem, prelim_items
-from edgar_re import *
-from edgar_title import title_from_table_tag, is_units, units_from_table
+from edgar_prelim.bs4_util import read_table_tag, sanitize_text
+from edgar_prelim.edgar_fiscal_period import has_fiscal_period, is_header_part, parse_fiscal_period_row
+from edgar_prelim.edgar_items import PrelimItem, prelim_items
+from edgar_prelim.edgar_re import *
+from edgar_prelim.edgar_title import title_from_table_tag, is_units, units_from_table
 from func_util import head_option
 
 Submission = namedtuple('Submission', ['cik', 'raw', 'number', 'header', 'documents'])

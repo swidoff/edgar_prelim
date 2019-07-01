@@ -2,8 +2,8 @@ from typing import List, Iterable, Iterator
 
 import pandas as pd
 
-from edgar_items import PrelimItem, prelim_items
-from edgar_query import FiscalPeriod
+from edgar_prelim.edgar_items import PrelimItem, prelim_items
+from edgar_prelim.edgar_query import FiscalPeriod
 
 
 def validate_prelims(df: pd.DataFrame, items: List[PrelimItem] = None) -> pd.DataFrame:

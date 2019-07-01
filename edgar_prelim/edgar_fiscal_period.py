@@ -5,7 +5,7 @@ from typing import Optional, Tuple, List, Sequence
 
 import pandas as pd
 
-from edgar_re import *
+from edgar_prelim.edgar_re import *
 
 
 def ordinal_to_number(word):

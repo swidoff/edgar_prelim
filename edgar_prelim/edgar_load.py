@@ -11,12 +11,12 @@ import qgrid
 from nbconvert.nbconvertapp import NbConvertApp
 from sqlalchemy import and_, between
 
-from bs4_util import *
-from edgar_db import *
-from edgar_items import *
-from edgar_query import *
-from edgar_submission import load_submission, items_from_tables, parse_tables, choose_item_by_rank
-from edgar_validate import validate_prelims
+from edgar_prelim.bs4_util import *
+from edgar_prelim.edgar_db import *
+from edgar_prelim.edgar_items import *
+from edgar_prelim.edgar_query import *
+from edgar_prelim.edgar_submission import load_submission, items_from_tables, parse_tables, choose_item_by_rank
+from edgar_prelim.edgar_validate import validate_prelims
 from logging_config import init_logging
 
 # TODO:

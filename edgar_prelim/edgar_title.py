@@ -5,8 +5,8 @@ from typing import Optional, Tuple, Sequence
 # noinspection PyProtectedMember
 from bs4 import Tag
 
-from bs4_util import match_table_title_text
-from edgar_re import *
+from edgar_prelim.bs4_util import match_table_title_text
+from edgar_prelim.edgar_re import *
 
 ######################################################################
 # Titles
