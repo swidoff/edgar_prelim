@@ -8,7 +8,7 @@ import pandas as pd
 import unicodedata
 from bs4 import Tag, NavigableString
 
-from func_util import head_option
+from edgar_prelim.func_util import head_option
 
 
 def read_table_tag(table: Tag) -> Optional[pd.DataFrame]:

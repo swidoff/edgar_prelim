@@ -15,7 +15,7 @@ from edgar_prelim.edgar_fiscal_period import has_fiscal_period, is_header_part, 
 from edgar_prelim.edgar_items import PrelimItem, prelim_items
 from edgar_prelim.edgar_re import *
 from edgar_prelim.edgar_title import title_from_table_tag, is_units, units_from_table
-from func_util import head_option
+from edgar_prelim.func_util import head_option
 
 Submission = namedtuple('Submission', ['cik', 'raw', 'number', 'header', 'documents'])
 SubmissionDocument = namedtuple("SubmissionDocument", ['type', 'filename', 'text'])
