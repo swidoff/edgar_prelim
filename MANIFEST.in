@@ -1,4 +1,2 @@
 # MANIFEST.in
-include *.txt
-recursive-include examples *
-recursive-include Doc *
+recursive-include edgar_prelim/resources *
