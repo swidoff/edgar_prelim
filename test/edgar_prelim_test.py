@@ -1,4 +1,4 @@
-from edgar_prelim.edgar_prelim import *
+from edgar_prelim.edgar_load import *
 from edgar_query import *
 from edgar_submission import *
 # noinspection PyProtectedMember
