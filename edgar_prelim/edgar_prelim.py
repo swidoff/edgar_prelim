@@ -36,17 +36,16 @@ from logging_config import init_logging
 # Record all periods reported, for intra-report comparison.
 # Factor tables into something more configurable, to allow for cik overrides without changing code.
 
-# Web server:
-# Company page
-# Static URL to call up detail page (Jupyter?) for each name
-# Query page to search by name, date and item
-# Json/CSV REST API
-# Host on Heroku or similar hosting site.
-
 logger = init_logging(__name__)
+
+"""
+Top-level module for loading new filings into the database.
+"""
 
 
 def _to_filing_df(cik: str, filing: Filing, report: Report, item_df: pd.DataFrame) -> pd.DataFrame:
+    """ Adds columns to the item_df produced by items_from_tables for a particular filing."""
+
     def item_fpe_offset(item_quarter: int) -> pd.DateOffset:
         months = 3 * (4 - item_quarter) if item_quarter != 4 else 12
         return pd.DateOffset(months=months)
@@ -65,6 +64,7 @@ def _to_filing_df(cik: str, filing: Filing, report: Report, item_df: pd.DataFram
 
 
 def extract_prelim_statement(cik: str, filing: Filing, items: List[PrelimItem] = None) -> pd.DataFrame:
+    """ The complete end-to-end extraction for a particular filing. """
     if filing.type.upper() != '8-K':
         return pd.DataFrame()
 
@@ -76,6 +76,7 @@ def extract_prelim_statement(cik: str, filing: Filing, items: List[PrelimItem] =
 
 def extract_prelim_statements(cik: str, start: date = None, end: date = None,
                               items: List[PrelimItem] = None) -> pd.DataFrame:
+    """The complete end-to-end extraction for a time series of filings. """
     filings = query_edgar_for_filings(cik, "8-K", start=start, end=end, require_xbrl=False)
     dfs = [
         extract_prelim_statement(cik, filing)
@@ -87,6 +88,8 @@ def extract_prelim_statements(cik: str, start: date = None, end: date = None,
 
 
 def _query_prelims(*clauses, conn: Connection = prelim_engine) -> pd.DataFrame:
+    """Queries the statements table for those items that match the supplied clauses, and chooses the value with the
+    highest rank."""
     df = pd.read_sql(
         prelim_statement_table.select().where(and_(*clauses)), conn
     )
@@ -97,12 +100,14 @@ def _query_prelims(*clauses, conn: Connection = prelim_engine) -> pd.DataFrame:
 
 
 def query_prelims(cik: str, conn: Connection = prelim_engine) -> pd.DataFrame:
+    """Queries items for the specified CIK."""
     return _query_prelims(prelim_statement_table.c.cik == cik, conn=conn)
 
 
 def query_prelims_for_override(cik: str, filing_date: Union[date, str] = None, item: str = None,
                                items: Iterable[PrelimItem] = None,
                                conn: Connection = prelim_engine) -> qgrid.QgridWidget:
+    """Produces a QgridWidget where changes to the grid will apply overrides to the modified items."""
     if items is None:
         items = prelim_items
 
@@ -142,6 +147,7 @@ def query_prelims_for_override(cik: str, filing_date: Union[date, str] = None, i
 
 
 def summarize_prelims(*ciks, items: List[PrelimItem] = None, conn: Connection = prelim_engine) -> pd.DataFrame:
+    """Produces a summary quality report for a collection of CIKs."""
     summary_dfs = []
     if items is None:
         items = prelim_items
