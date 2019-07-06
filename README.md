@@ -16,14 +16,14 @@ prohibitive.
 
 Here is a snippet of the CITIGROUP 2019Q1 preliminary income statement:
 
-![CITIGROUP 2019Q1!](/doc/citi-before.png)
+![CITIGROUP 2019Q1 raw!](/doc/citi-before.png)
 
 edgar_prelim systematically discovers, scrapes and conforms HTML preliminary announcement data from the SEC Edgar 
 website with as few errors as possible. 
 
 Here's what edgar_prelim collects:
 
-![CITIGROUP 2019Q1!](/doc/citi-before.png)
+![CITIGROUP 2019Q1 edgar_prelim!](/doc/citi-after.png)
 
 View the full [CITIGROUP 2019Q1](https://true-hockey-36470.herokuapp.com/static/quality/0000831001.html) edgar_prelim report.
 
