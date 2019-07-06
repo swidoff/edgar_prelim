@@ -352,7 +352,7 @@ def force_reload_prelim_between(cik: str, start: date, end: date, delete_filings
 
 
 def run_quality_report(cik: str, regen: bool = False, convert_to_html: bool = False):
-    nb_file = f'../out/notebooks/{cik}.ipynb'
+    nb_file = f'../notebooks/reports/{cik}.ipynb'
     if not regen and Path(nb_file).exists():
         logger.info(f"Notebook exists for {cik}. Skipping.")
         return
@@ -367,7 +367,7 @@ def run_quality_report(cik: str, regen: bool = False, convert_to_html: bool = Fa
         args = [
             "--Application.log_level=ERROR",
             "--TemplateExporter.exclude_input=True",
-            "--output-dir=static/quality/",
+            "--output-dir=../out/notebooks",
             nb_file
         ]
         NbConvertApp.launch_instance(args)
@@ -405,4 +405,5 @@ def update_database(to: date = datetime.now().date(),
 
 if __name__ == '__main__':
     # update_database()
-    generate_quality_reports()
+    # generate_quality_reports()
+    run_quality_report('0000831001', regen=True, convert_to_html=True)
