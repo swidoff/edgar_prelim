@@ -7,12 +7,12 @@ Extracts and builds a database of preliminary financial statement items from the
 * Play with the notebooks on [Binder](https://mybinder.org/v2/gh/swidoff/edgar_prelim/master?urlpath=lab/tree/notebooks/reports) 
 
 US Companies publish their 10-K and 10-Q annual and quarterly financial statements in (mostly) machine-readable XBRL 
-format on the SEC Edgar website. In the weeks leading up to the final announcement date, many companies also publish 
-8-K preliminary, unaudited versions that nevertheless preview useful information. Getting early access to those 
-preliminaries can allow an investor to calculate more accurate valuations ahead of the announcement. However, these 
-preliminary announcements are usually submitted as loosely structured HTML documents that aren't very consistent across 
-companies. If you are running a systematic strategy on a large universe, combing through the HTML by hand is 
-prohibitive.
+format on the [SEC Edgar](https://www.sec.gov/edgar/searchedgar/companysearch.html) website. In the weeks leading up
+to the final announcement date, many companies also publish 8-K preliminary, unaudited versions that nevertheless 
+preview useful information. Getting early access to those preliminaries can allow an investor to calculate more 
+accurate valuations ahead of the announcement. However, these preliminary announcements are usually submitted as loosely 
+structured HTML documents that aren't very consistent across companies. If you are running a systematic strategy on a 
+large universe, combing through the HTML by hand is prohibitive.
 
 Here is a snippet of the CITIGROUP 2019Q1 preliminary income statement:
 
