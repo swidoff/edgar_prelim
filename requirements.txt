@@ -1,6 +1,6 @@
 bs4==0.0.1
 matplotlib==3.0.3
-nbconvert==5.5.0
+nbconvert==6.3.0
 numpy==1.16.1
 pandas==0.24.1
 papermill==0.19.1
